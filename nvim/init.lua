@@ -11,8 +11,6 @@ vim.cmd([[
 
   "LSP
   Plug 'neovim/nvim-lspconfig'
-  Plug 'williamboman/mason.nvim'
-  Plug 'williamboman/mason-lspconfig.nvim'
 
   "Autocomplete
   Plug 'hrsh7th/nvim-cmp'
@@ -36,7 +34,12 @@ vim.cmd([[
 ]])
 
  
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  filters = {
+    git_ignored = false,
+  },
+})
+
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
@@ -44,28 +47,27 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
 -- lsp configs
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "lua", "rust", "javascript", "typescript", "python" },
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
+	ensure_installed = { "lua", "rust", "javascript", "typescript", "python" },
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+	},
+
 }
--- Mason
-require("mason").setup()
-require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "rust_analyzer" },
-  automatic_installation = true,
-})
+
 
 -- LSP servers
 local lspconfig = require("lspconfig")
 
 lspconfig.lua_ls.setup {}
 lspconfig.rust_analyzer.setup {}
+lspconfig.gopls.setup{}
 
 -- Autocomplete
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+
+
 
 cmp.setup({
   snippet = {

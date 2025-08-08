@@ -1,0 +1,6 @@
+@theme "themes/rounded-nord-dark"
+
+configuration {
+  show-icons: true;
+}
+

@@ -1,3 +1,8 @@
 [window]
-opacity = 0.8
+opacity = 0.9
 dynamic_title = false
+
+[window.padding]
+x = 4
+y = 4
+
